@@ -1,6 +1,6 @@
 <!-- 登录页 -->
 <template>
-  <div class="container">
+  <div class="box">
     <el-card class="my-card">
       <img src="../../assets/images/logo_index.png" alt />
       <!-- 表单 -->
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-// import { closeSync } from 'fs'
+import store from '@/store'
 export default {
   data () {
     // rule：当前校检的对象， 不会使用
@@ -68,6 +68,8 @@ export default {
           this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm)
           // res 响应对象 包括响应主体
             .then(res => {
+              // 存储用户信息
+              store.setUser(res.data.data)
               // 跳转去首页
               this.$router.push('/')
               // catch() 监听错误
@@ -83,7 +85,7 @@ export default {
 </script>
 
 <style>
-.container {
+.box {
   position: absolute;
   width: 100%;
   height: 100%;
