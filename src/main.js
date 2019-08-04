@@ -6,7 +6,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import axios from 'axios'
 
 // 引入less文件
 import '@/style/index.less'
@@ -15,12 +14,14 @@ import '@/style/index.less'
 // 目录下有默认索引文件 index js 就是索引文件 js, index, json
 import router from '@/router'
 
+import axios from 'axios'
+Vue.prototype.$http = axios
+
 // 控制台提示信息
 Vue.config.productionTip = false
 
 // 使用依赖或者资源
 Vue.use(ElementUI)
-Vue.prototype.$http = axios
 
 // 根实例
 new Vue({
