@@ -14,7 +14,7 @@ import '@/style/index.less'
 // 目录下有默认索引文件 index js 就是索引文件 js, index, json
 import router from '@/router'
 
-import axios from 'axios'
+import axios from '@/api'
 Vue.prototype.$http = axios
 
 // 控制台提示信息

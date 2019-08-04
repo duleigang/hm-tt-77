@@ -6,7 +6,7 @@ import Home from '@/views/home'
 import Welcome from '@/views/welcome'
 import Article from '@/views/article'
 import NotFound from '@/views/404'
-// import store from '../store';
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -33,15 +33,16 @@ const router = new VueRouter({
 
 // 提供函数 beforeEach 前置守卫
 // to 去的路由对象  from来自哪里的路由对象
-// router.beforeEach((to, from, next) => {
-// 判断是不是登录页面
-// if (to.path === '/login') return next()
-// 判断是不是登录过      next('/login'): 拦截登录
-// if (!store.getUser().token) return next('/login')
-// 两者都不是 放行
-// next()
-// if (to.path !== '/login' && !store.getUser().token) return next('/login')
-// })
+router.beforeEach((to, from, next) => {
+  //   //   // 判断是不是登录页面
+  //   if (to.path === '/login') return next()
+  //   //   // 判断是不是登录过      next('/login'): 拦截登录
+  //   if (!store.getUser().token) return next('/login')
+  //   //   // 两者都不是 放行
+  //   next()
+  if (to.path !== '/login' && !store.getUser().token) return next('/login')
+  next()
+})
 
 // 导出router
 export default router

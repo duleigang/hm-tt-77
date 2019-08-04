@@ -11,6 +11,6 @@ export default {
   },
   getUser () {
     // 获取用户信息
-    return JSON.parse(window.sessionStorage(KEY) || '{}')
+    return JSON.parse(window.sessionStorage.getItem(KEY) || '{}')
   }
 }
