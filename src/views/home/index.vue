@@ -50,15 +50,17 @@
       <el-header>
         <span class="el-icon-s-fold" @click="toggleMenu()"></span>
         <span class="text">江苏传智播客科技教育有限公司</span>
-        <el-dropdown class="my-dropdown">
+        <el-dropdown class="my-dropdown" @command='chageMenu'>
           <span class="el-dropdown-link">
-            <img src="../../assets/images/avatar.jpg" alt />
-            爱的猪打歌
+            <img :src="photo" alt />
+            {{ name }}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>个人设置</el-dropdown-item>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <!-- <el-dropdown-item icon="el-icon-setting"  @click.native="setting()">个人设置</el-dropdown-item> -->
+            <!-- <el-dropdown-item icon="el-icon-unlock" @click.native="logout()">退出登录</el-dropdown-item> -->
+            <el-dropdown-item icon="el-icon-setting"  command="setting">个人设置</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-unlock" command="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -71,16 +73,41 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      name: 'this.name',
+      photo: 'this.photo'
     }
+  },
+  created () {
+    // 本地获取用户信息
+    const user = store.getUser()
+    this.name = user.name
+    this.photo = user.photo
   },
   methods: {
     // 切换菜单栏的展开与收起。默认展开
     toggleMenu () {
       this.isCollapse = !this.isCollapse
+    },
+    // click是原生的点击事件，只支持原生dom
+    // 期望，把事件绑定在组件解析后的原生dom上 @click.native
+    setting () {
+      this.$router.push('/article')
+    },
+    logout () {
+      store.clearUser()
+      // this.$router.push('/login')
+      this.$router.push({ name: 'login' })
+    },
+    // 绑定事件不加括号的原因：为了接收默认参数
+    // menuType是变量，可能是setting也可能是logout
+    // this[menuType] = setting() / logout();
+    chageMenu (menuType) {
+      this[menuType]()
     }
   }
 }
