@@ -62,21 +62,28 @@ export default {
   methods: {
     login (loginForm) {
       // 对整个表单进行校验
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
           // 请求登录接口
-          this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm)
-          // res 响应对象 包括响应主体
-            .then(res => {
-              // 存储用户信息
-              store.setUser(res.data.data)
-              // 跳转去首页
-              this.$router.push('/')
-              // catch() 监听错误
-            }).catch(() => {
-              // 错误提示 使用element-ui组件
-              this.$message.error('手机号或验证码错误')
-            })
+          // this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm)
+          // // res 响应对象 包括响应主体
+          //   .then(res => {
+          //     // 存储用户信息
+          //     store.setUser(res.data.data)
+          //     // 跳转去首页
+          //     this.$router.push('/')
+          //     // catch() 监听错误
+          //   }).catch(() => {
+          //     // 错误提示 使用element-ui组件
+          //     this.$message.error('手机号或验证码错误')
+          //   })
+          try {
+            const { data: { data } } = await this.$http.post('authorizations', this.loginForm)
+            store.setUser(data)
+            this.$router.push('/')
+          } catch (e) {
+            this.$message.error('手机号或验证码错误')
+          }
         }
       })
     }
