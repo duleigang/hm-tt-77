@@ -45,10 +45,8 @@
 
 <script>
 // 引入
-import MyBread from '@/components/my-bread'
 export default {
   // 注册
-  components: { MyBread },
   data () {
     return {
       // 筛选项表单数据 提交给后台的参数

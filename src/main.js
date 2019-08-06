@@ -15,6 +15,9 @@ import '@/style/index.less'
 import router from '@/router'
 
 import axios from '@/api'
+import myCom from '@/components'
+Vue.use(myCom)
+
 Vue.prototype.$http = axios
 
 // 控制台提示信息
