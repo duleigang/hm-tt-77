@@ -96,7 +96,7 @@ export default {
     // click是原生的点击事件，只支持原生dom
     // 期望，把事件绑定在组件解析后的原生dom上 @click.native
     setting () {
-      this.$router.push('/article')
+      this.$router.push('/setting')
     },
     logout () {
       store.clearUser()
